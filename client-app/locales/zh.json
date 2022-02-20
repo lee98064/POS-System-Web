@@ -1,0 +1,10 @@
+{
+    "title": "進銷存系統",
+    "navbarHome": "首頁",
+    "navbarBlog": "部落格",
+    "navbarAbout": "關於我",
+    "navbarWork": "作品集",
+    "Sidebar":{
+        "dashboard": "資訊版"
+    }
+}

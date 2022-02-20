@@ -1,0 +1,10 @@
+{
+    "title": "POSSystem",
+    "navbarHome": "Home",
+    "navbarBlog": "Blog",
+    "navbarAbout": "About",
+    "navbarWork": "My Work",
+    "Sidebar":{
+        "dashboard": "Dashboard"
+    }
+}
