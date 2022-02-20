@@ -69,7 +69,7 @@
                             :items-per-page="5"
                             class="elevation-1"
                     >
-                        <template v-slot:item.action="">
+                        <template>
                             <v-btn color="success" outlined small shaped >View</v-btn>
                         </template>
                     </v-data-table>
