@@ -5,6 +5,7 @@
     "navbarAbout": "About",
     "navbarWork": "My Work",
     "Sidebar":{
-        "dashboard": "Dashboard"
+        "dashboard": "Dashboard",
+        "send": "Delivery System"
     }
 }

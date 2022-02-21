@@ -5,6 +5,7 @@
     "navbarAbout": "關於我",
     "navbarWork": "作品集",
     "Sidebar":{
-        "dashboard": "資訊版"
+        "dashboard": "資訊版",
+        "send": "出貨系統"
     }
 }

@@ -78,7 +78,7 @@ export default {
           path: '/dashboard',
         },
         {
-          name: 'Send',
+          name: 'Sidebar.send',
           icon: 'mdi-send',
           path: '/send',
         },
