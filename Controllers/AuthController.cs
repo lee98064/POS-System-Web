@@ -1,41 +1,58 @@
 using Microsoft.AspNetCore.Mvc;
-
+using BC = BCrypt.Net.BCrypt;
+using POSSystemApi.Models;
 namespace POSSystemApi.Controllers;
 
 [ApiController]
 [Route("api/[Controller]")]
 public class AuthController : Controller
 {
+
+    private readonly POSSystemApiContext _context;
+
+    public AuthController(POSSystemApiContext context)
+    {
+        _context = context;
+    }
+
     [HttpPost("login")]
     public IActionResult Login(string account, string password)
     {
-        if(account == "admin" && password == "12345")
+        var user = _context.User.SingleOrDefault(x => x.account == account);
+        if (user == null || !BC.Verify(password, user.password))
         {
-            JwtAuthUtil jwtAuthUtil = new JwtAuthUtil();
-            string jwtToken = jwtAuthUtil.GenerateToken();
-            return Json(new AuthData(){status = true, token = jwtToken});
+            return Json(new AuthData(){status = false, token = "Account Or Password Error"});
         }
         else
         {
-            return Json(new AuthData(){status = false, token = "Account Or Password Error"});
+            JwtAuthUtil jwtAuthUtil = new JwtAuthUtil();
+            string jwtToken = jwtAuthUtil.GenerateToken(user);
+            return Json(new AuthData(){status = true, token = jwtToken});
         }
     }
 
     [HttpPost("register")]
-    public IActionResult Register(string name,string account,string password, string password_vaild){
+    public IActionResult Register(string email,string name,string account,string password, string password_vaild){
 
         AuthData data = new AuthData();
-
         if (!(password == password_vaild)){
             data.status = false;
             data.token = "Password vaild error!";
             return Json(data);
         }
 
+        User user = new User();
+        user.email = email;
+        user.name = name;
+        user.account = account;
+        user.password = BCrypt.Net.BCrypt.HashPassword(password);
+        _context.User.Add(user);
+        _context.SaveChanges();
 
+        JwtAuthUtil jwtAuthUtil = new JwtAuthUtil();
+        string jwtToken = jwtAuthUtil.GenerateToken(user);
 
-        return Json(data);
-
+        return Json(new AuthData(){status = false, token = jwtToken});
 
     }
 }
