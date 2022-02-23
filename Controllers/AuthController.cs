@@ -55,6 +55,12 @@ public class AuthController : Controller
         return Json(new AuthData(){status = false, token = jwtToken});
 
     }
+
+    [HttpGet("isLogin")]
+    public IActionResult isLogin(){
+        return Json(new AuthData(){status = true, token = "asdsadsad"});
+
+    }
 }
 
 class AuthData{

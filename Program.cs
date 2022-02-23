@@ -51,7 +51,7 @@ app.UseSpa(spa =>
     }
 });
 
-app.UseHttpsRedirection();
+// app.UseHttpsRedirection();
 
 app.UseAuthorization();
 

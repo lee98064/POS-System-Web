@@ -2,7 +2,7 @@
     <div class="dashboard">
         <v-subheader class="py-0 d-flex justify-space-between rounded-lg">
             <h3>Dashboard</h3>
-            <v-btn color="success">
+            <v-btn color="success" @click="onButtonClick">
                 View Orders
             </v-btn>
         </v-subheader>
@@ -70,7 +70,7 @@
                             class="elevation-1"
                     >
                         <template>
-                            <v-btn color="success" outlined small shaped >View</v-btn>
+                            <v-btn color="success" outlined small shaped>View</v-btn>
                         </template>
                     </v-data-table>
                 </v-card>
@@ -82,6 +82,7 @@
 <script>
     export default {
         name: "DashboardPage",
+        middleware: ["auth"],
         data() {
             return {
                 activityLog: [
@@ -194,8 +195,10 @@
             }
         },
         methods: {
-            onButtonClick(item) {
+            async onButtonClick(item) {
                 console.log('click on ' + item.no)
+                const res = await this.$api.user.isLogin()
+                console.log(res);
             }
         }
 
