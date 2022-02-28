@@ -21,7 +21,7 @@ public class AuthController : Controller
         var user = _context.User.SingleOrDefault(x => x.account == account);
         if (user == null || !BC.Verify(password, user.password))
         {
-            return Json(new AuthData(){status = false, token = "Account Or Password Error"});
+            return Json(new AuthData(){status = false, token = "LOGIN_FAILED"});
         }
         else
         {
@@ -32,7 +32,7 @@ public class AuthController : Controller
     }
 
     [HttpPost("register")]
-    public IActionResult Register(string email,string name,string account,string password, string password_vaild){
+    public IActionResult Register(string email, string name, string account, string password, string password_vaild){
 
         AuthData data = new AuthData();
         if (!(password == password_vaild)){
@@ -52,7 +52,7 @@ public class AuthController : Controller
         JwtAuthUtil jwtAuthUtil = new JwtAuthUtil();
         string jwtToken = jwtAuthUtil.GenerateToken(user);
 
-        return Json(new AuthData(){status = false, token = jwtToken});
+        return Json(new AuthData(){status = true, token = jwtToken});
 
     }
 

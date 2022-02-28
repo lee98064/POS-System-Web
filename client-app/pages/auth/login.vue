@@ -16,12 +16,13 @@
                     <v-row align="center" justify="center">
                       <v-col cols="12" sm="8">
                         <v-text-field
-                          label="Email"
+                          label="Account"
                           outlined
                           dense
                           color="blue"
                           autocomplete="false"
                           class="mt-16"
+                          v-model="account"
                         />
                         <v-text-field
                           label="Password"
@@ -30,6 +31,7 @@
                           color="blue"
                           autocomplete="false"
                           type="password"
+                          v-model="password"
                         />
                         <v-row>
                           <v-col cols="12" sm="7">
@@ -46,7 +48,7 @@
                             >
                           </v-col>
                         </v-row>
-                        <v-btn color="blue" dark block tile>Log in</v-btn>
+                        <v-btn color="blue" dark block tile @click="login()">Log in</v-btn>
 
                         <h5 class="text-center grey--text mt-4 mb-3">
                           Or Log in using
@@ -103,34 +105,30 @@
                     </h6>
                     <v-row align="center" justify="center">
                       <v-col cols="12" sm="8">
-                        <v-row>
-                          <v-col cols="12" sm="6">
-                            <v-text-field
-                              label="First Name"
-                              outlined
-                              dense
-                              color="blue"
-                              autocomplete="false"
-                              class="mt-4"
-                            />
-                          </v-col>
-                          <v-col cols="12" sm="6">
-                            <v-text-field
-                              label="Last Name"
-                              outlined
-                              dense
-                              color="blue"
-                              autocomplete="false"
-                              class="mt-4"
-                            />
-                          </v-col>
-                        </v-row>
+
+                        <v-text-field
+                          label="Name"
+                          outlined
+                          dense
+                          color="blue"
+                          autocomplete="false"
+                          v-model="register.name"
+                        />
+                        <v-text-field
+                          label="Account"
+                          outlined
+                          dense
+                          color="blue"
+                          autocomplete="false"
+                          v-model="register.account"
+                        />
                         <v-text-field
                           label="Email"
                           outlined
                           dense
                           color="blue"
                           autocomplete="false"
+                          v-model="register.email"
                         />
                         <v-text-field
                           label="Password"
@@ -139,6 +137,16 @@
                           color="blue"
                           autocomplete="false"
                           type="password"
+                          v-model="register.password"
+                        />
+                        <v-text-field
+                          label="Password"
+                          outlined
+                          dense
+                          color="blue"
+                          autocomplete="false"
+                          type="password"
+                          v-model="register.password_vaild"
                         />
                         <v-row>
                           <v-col cols="12" sm="7">
@@ -155,7 +163,7 @@
                             >
                           </v-col>
                         </v-row>
-                        <v-btn color="blue" dark block tile>Sign up</v-btn>
+                        <v-btn color="blue" dark block tile @click="signup()">Sign up</v-btn>
 
                         <h5 class="text-center grey--text mt-4 mb-3">
                           Or Sign up using
@@ -182,10 +190,41 @@ export default {
   layout: 'auth',
   data: () => ({
     step: 1,
+    account: "",
+    password: "",
+    register:{
+      email: "",
+      name: "",
+      account: "",
+      password: "",
+      password_vaild: "",
+    }
   }),
   props: {
     source: String,
   },
+  methods:{
+    async login(){
+      // const validate = this.$refs.form.validate()
+      const res = await this.$api.user.login(this.account, this.password)
+      console.log(res.data.token)
+      if (res instanceof Error || !res.data.status) {
+        return this.$alert.error(res.data.token)
+      }
+      this.$alert.success('登入成功')
+      this.$router.push({ name: 'index' })
+    },
+
+    async signup(){
+      // const validate = this.$refs.form.validate()
+      const res = await this.$api.user.register(this.register)
+      if (res instanceof Error || !res.data.status) {
+        return this.$alert.error(res.token)
+      }
+      this.$alert.success('註冊成功')
+      this.$router.push({ name: 'dashboard' })
+    }
+  }
 }
 </script>
 <style scoped>

@@ -13,7 +13,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddSpaStaticFiles(options => options.RootPath = "client-app/dist");
+//builder.Services.AddSpaStaticFiles(options => options.RootPath = "client-app/dist");
 
 var app = builder.Build();
 
@@ -24,10 +24,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-if (!app.Environment.IsDevelopment())
-{
-    app.UseSpaStaticFiles();
-}
+//if (!app.Environment.IsDevelopment())
+//{
+//    app.UseSpaStaticFiles();
+//}
 
 app.UseRouting();
 
@@ -41,15 +41,15 @@ app.UseEndpoints(endpoints =>
         pattern: "api/{controller}/{action=Index}/{id?}");
 });
 
-app.UseSpa(spa =>
-{
-    spa.Options.SourcePath = "client-app";
+//app.UseSpa(spa =>
+//{
+//    spa.Options.SourcePath = "client-app";
 
-    if (app.Environment.IsDevelopment())
-    {
-        spa.UseNuxtDevelopmentServer();
-    }
-});
+//    if (app.Environment.IsDevelopment())
+//    {
+//        spa.UseNuxtDevelopmentServer();
+//    }
+//});
 
 // app.UseHttpsRedirection();
 

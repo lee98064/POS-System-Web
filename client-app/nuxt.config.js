@@ -8,13 +8,28 @@ export default {
     htmlAttrs: {
       lang: 'en',
     },
-    meta: [
-      { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' },
-      { name: 'format-detection', content: 'telephone=no' },
+    meta: [{
+        charset: 'utf-8'
+      },
+      {
+        name: 'viewport',
+        content: 'width=device-width, initial-scale=1'
+      },
+      {
+        hid: 'description',
+        name: 'description',
+        content: ''
+      },
+      {
+        name: 'format-detection',
+        content: 'telephone=no'
+      },
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    link: [{
+      rel: 'icon',
+      type: 'image/x-icon',
+      href: '/favicon.ico'
+    }],
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
@@ -26,7 +41,8 @@ export default {
     // { ssr: false, src: '~/plugins/api.js' },
     '~/plugins/i18n.js',
     '~/plugins/api.js',
-    '~/plugins/axios.js',
+    '~/plugins/alert.js',
+    // '~/plugins/axios.js',
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -42,29 +58,33 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
+    '@nuxtjs/proxy',
+    'vue-sweetalert2/nuxt',
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
-  axios: {
-    baseURL: 'http://localhost:7235/api'
-  },
   // axios: {
-  //   proxy: true,
-  //   // https: true,
-  //   prefix: '/api',
+  //   baseURL: 'http://localhost:7235/api'
   // },
-  // proxy: {
-  //   '/api': {
-  //     target: 'http://localhost:7235/api',
-  //     pathRewrite: { "^/api/": "/api/" },  
-  //     // rejectUnauthorized: false,   
-  //     // secure: true
-  //     changeOrigin: true,
-  //     // pathRewrite: {
-  //     //   '^/api': '',
-  //     // },
-  //   },
-  // },
+  axios: {
+    proxy: true,
+    // https: true,
+    prefix: '/api',
+  },
+  proxy: {
+    '/api': {
+      target: 'http://localhost:7235',
+      pathRewrite: {
+        "^/api/": "/api/"
+      },
+      // rejectUnauthorized: false,
+      // secure: true
+      changeOrigin: true,
+      // pathRewrite: {
+      //   '^/api': '',
+      // },
+    },
+  },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
