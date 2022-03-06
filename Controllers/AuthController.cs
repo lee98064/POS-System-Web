@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using BC = BCrypt.Net.BCrypt;
 using POSSystemApi.Models;
 using POSSystemApi.RequestData;
+using POSSystemApi.ResponseData;
 namespace POSSystemApi.Controllers;
 
 [ApiController]
@@ -26,8 +27,7 @@ public class AuthController : Controller
         }
         else
         {
-            JwtAuthUtil jwtAuthUtil = new JwtAuthUtil();
-            string jwtToken = jwtAuthUtil.GenerateToken(user);
+            string jwtToken = JwtAuthUtil.GenerateToken(user);
             return Json(new AuthData(){status = true, token = jwtToken});
         }
     }
@@ -50,8 +50,7 @@ public class AuthController : Controller
         _context.User.Add(user);
         _context.SaveChanges();
 
-        JwtAuthUtil jwtAuthUtil = new JwtAuthUtil();
-        string jwtToken = jwtAuthUtil.GenerateToken(user);
+        string jwtToken = JwtAuthUtil.GenerateToken(user);
 
         return Json(new AuthData(){status = true, token = jwtToken});
 
@@ -60,19 +59,11 @@ public class AuthController : Controller
     [HttpGet("isLogin")]
     public IActionResult isLogin(string token){
 
-        JwtAuthUtil jwtAuthUtil = new JwtAuthUtil();
-        if(jwtAuthUtil.VerifyToken(token)){
+        if(JwtAuthUtil.VerifyToken(token)){
             return Json(new AuthData(){status = true});
         }else{
             return Json(new AuthData(){status = false});
         }
 
     }
-}
-
-class AuthData{
-
-    public bool status {get; set;}
-    public string token {get; set;}
-
 }

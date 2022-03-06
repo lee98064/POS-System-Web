@@ -4,7 +4,7 @@ using System.Text;
 
 public class JwtAuthUtil
 {
-    public string GenerateToken(User user)
+    public static string GenerateToken(User user)
     {
         string secret = "jwtauthapp";//加解密的key
         Dictionary<string, Object> claim = new Dictionary<string, Object>();//payload 需透過token傳遞的資料
@@ -16,7 +16,7 @@ public class JwtAuthUtil
         return token;
     }
 
-    public bool VerifyToken(string token){
+    public static bool VerifyToken(string token){
         string secret = "jwtauthapp";//加解密的key
         try {
             //解密後會回傳Json格式的物件(即加密前的資料)
@@ -35,10 +35,9 @@ public class JwtAuthUtil
         }
         
     }
-    
 
     //驗證token時效
-    public bool IsTokenExpired(string dateTime)
+    public static bool IsTokenExpired(string dateTime)
     {
         return Convert.ToDateTime(dateTime) < DateTime.Now;
     }

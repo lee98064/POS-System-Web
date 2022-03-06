@@ -1,5 +1,3 @@
-using System;
-
 namespace POSSystemApi.RequestData
  {
     public class LoginData
