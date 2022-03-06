@@ -1,10 +1,10 @@
 function createApi($axios) {
   return {
     user: {
-      login(username, password) {
+      login(account, password) {
         return $axios
           .post('/auth/login', {
-            username: username,
+            account: account,
             password: password
           })
           .then((res) => res)
@@ -23,9 +23,13 @@ function createApi($axios) {
           .then((res) => res)
           .catch((e) => e)
       },
-      isLogin() {
+      isLogin(data) {
         return $axios
-          .get('/auth/isLogin')
+          .get('/auth/isLogin', {
+            params: {
+              "token": localStorage.getItem("authkey")
+            }
+          })
           .then((res) => res)
           .catch((e) => e)
       },

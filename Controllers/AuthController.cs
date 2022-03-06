@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using BC = BCrypt.Net.BCrypt;
 using POSSystemApi.Models;
+using POSSystemApi.RequestData;
 namespace POSSystemApi.Controllers;
 
 [ApiController]
@@ -16,10 +17,10 @@ public class AuthController : Controller
     }
 
     [HttpPost("login")]
-    public IActionResult Login(string account, string password)
+    public IActionResult Login(LoginData request)
     {
-        var user = _context.User.SingleOrDefault(x => x.account == account);
-        if (user == null || !BC.Verify(password, user.password))
+        var user = _context.User.SingleOrDefault(x => x.account == request.account);
+        if (user == null || !BC.Verify(request.password, user.password))
         {
             return Json(new AuthData(){status = false, token = "LOGIN_FAILED"});
         }
@@ -32,20 +33,20 @@ public class AuthController : Controller
     }
 
     [HttpPost("register")]
-    public IActionResult Register(string email, string name, string account, string password, string password_vaild){
+    public IActionResult Register(RegisterData request){
 
         AuthData data = new AuthData();
-        if (!(password == password_vaild)){
+        if (!(request.password == request.password_vaild)){
             data.status = false;
             data.token = "Password vaild error!";
             return Json(data);
         }
 
         User user = new User();
-        user.email = email;
-        user.name = name;
-        user.account = account;
-        user.password = BCrypt.Net.BCrypt.HashPassword(password);
+        user.email = request.email;
+        user.name = request.name;
+        user.account = request.account;
+        user.password = BCrypt.Net.BCrypt.HashPassword(request.password);
         _context.User.Add(user);
         _context.SaveChanges();
 
@@ -57,8 +58,14 @@ public class AuthController : Controller
     }
 
     [HttpGet("isLogin")]
-    public IActionResult isLogin(){
-        return Json(new AuthData(){status = true, token = "asdsadsad"});
+    public IActionResult isLogin(string token){
+
+        JwtAuthUtil jwtAuthUtil = new JwtAuthUtil();
+        if(jwtAuthUtil.VerifyToken(token)){
+            return Json(new AuthData(){status = true});
+        }else{
+            return Json(new AuthData(){status = false});
+        }
 
     }
 }

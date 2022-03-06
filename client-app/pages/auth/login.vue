@@ -212,6 +212,7 @@ export default {
         return this.$alert.error(res.data.token)
       }
       this.$alert.success('登入成功')
+      localStorage.setItem('authkey', res.data.token)
       this.$router.push({ name: 'index' })
     },
 
@@ -222,6 +223,7 @@ export default {
         return this.$alert.error(res.token)
       }
       this.$alert.success('註冊成功')
+      localStorage.setItem('authkey', res.data.token)
       this.$router.push({ name: 'dashboard' })
     }
   }
