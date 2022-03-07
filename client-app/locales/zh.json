@@ -1,11 +1,16 @@
 {
-    "title": "進銷存系統",
-    "navbarHome": "首頁",
-    "navbarBlog": "部落格",
-    "navbarAbout": "關於我",
-    "navbarWork": "作品集",
-    "Sidebar":{
-        "dashboard": "資訊版",
-        "send": "出貨系統"
-    }
+  "title": "進銷存系統",
+  "navbarHome": "首頁",
+  "navbarBlog": "部落格",
+  "navbarAbout": "關於我",
+  "navbarWork": "作品集",
+  "Sidebar": {
+    "dashboard": "資訊版",
+    "send": "出貨系統",
+    "products": "產品管理"
+  },
+  "Products": {
+    "new": "新增產品"
+  },
+  "logout": "登出"
 }

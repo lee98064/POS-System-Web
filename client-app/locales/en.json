@@ -1,11 +1,16 @@
 {
-    "title": "POSSystem",
-    "navbarHome": "Home",
-    "navbarBlog": "Blog",
-    "navbarAbout": "About",
-    "navbarWork": "My Work",
-    "Sidebar":{
-        "dashboard": "Dashboard",
-        "send": "Delivery System"
-    }
+  "title": "POSSystem",
+  "navbarHome": "Home",
+  "navbarBlog": "Blog",
+  "navbarAbout": "About",
+  "navbarWork": "My Work",
+  "Sidebar": {
+    "dashboard": "Dashboard",
+    "send": "Delivery System",
+    "products": "Products Manager"
+  },
+  "Products": {
+    "new": "New Product"
+  },
+  "logout": "Logout"
 }

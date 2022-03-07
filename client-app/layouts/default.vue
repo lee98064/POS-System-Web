@@ -48,6 +48,9 @@
             dense
             @change="setLang($store.state.lang)"
           ></v-select>
+          <v-btn block color="red" @click="logout()">
+            {{ $t('logout') }}
+          </v-btn>
         </div>
       </template>
     </v-navigation-drawer>
@@ -77,10 +80,15 @@ export default {
           icon: 'mdi-monitor-dashboard',
           path: '/dashboard',
         },
+        // {
+        //   name: 'Sidebar.send',
+        //   icon: 'mdi-send',
+        //   path: '/send',
+        // },
         {
-          name: 'Sidebar.send',
-          icon: 'mdi-send',
-          path: '/send',
+          name: 'Sidebar.products',
+          icon: 'mdi-shopping',
+          path: '/products',
         },
       ],
       optionLang: [
@@ -94,6 +102,10 @@ export default {
       this.$store.commit('setLang', value)
       this.$i18n.locale = value
     },
+    logout(){
+      localStorage.removeItem('authkey')
+      this.$router.push({ name: 'index' })
+    }
   },
 }
 </script>

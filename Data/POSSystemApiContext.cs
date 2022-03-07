@@ -15,6 +15,7 @@ using POSSystemApi.Models;
         }
 
         public DbSet<POSSystemApi.Models.User> User { get; set; }
+        public DbSet<POSSystemApi.Models.Product> Product { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
