@@ -34,6 +34,14 @@ function createApi($axios) {
           .catch((e) => e)
       },
     },
+    products: {
+      all() {
+        return $axios
+          .get('/products/index')
+          .then((res) => res)
+          .catch((e) => e)
+      }
+    }
   }
 }
 
