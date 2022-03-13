@@ -103,7 +103,8 @@ export default {
       this.$i18n.locale = value
     },
     logout(){
-      localStorage.removeItem('authkey')
+      this.$cookie.remove('authToken')
+      this.$alert.success('登出成功')
       this.$router.push({ name: 'index' })
     }
   },
