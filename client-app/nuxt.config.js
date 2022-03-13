@@ -42,6 +42,7 @@ export default {
     '~/plugins/i18n.js',
     '~/plugins/api.js',
     '~/plugins/alert.js',
+    '~/plugins/cookie.js',
     // '~/plugins/axios.js',
   ],
 
@@ -70,6 +71,7 @@ export default {
     proxy: true,
     // https: true,
     prefix: '/api',
+    withCredentials: true,
   },
   proxy: {
     '/api': {

@@ -23,13 +23,9 @@ function createApi($axios) {
           .then((res) => res)
           .catch((e) => e)
       },
-      isLogin(data) {
+      isLogin() {
         return $axios
-          .get('/auth/isLogin', {
-            params: {
-              "token": localStorage.getItem("authkey")
-            }
-          })
+          .get('/auth/isLogin')
           .then((res) => res)
           .catch((e) => e)
       },

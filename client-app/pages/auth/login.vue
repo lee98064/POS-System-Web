@@ -185,6 +185,7 @@
 </template>
 
 <script>
+// const Cookie = process.client ? require('js-cookie') : undefined;
 export default {
   name: 'LoginPage',
   layout: 'auth',
@@ -205,14 +206,12 @@ export default {
   },
   methods:{
     async login(){
-      // const validate = this.$refs.form.validate()
       const res = await this.$api.user.login(this.account, this.password)
-      console.log(res.data.token)
       if (res instanceof Error || !res.data.status) {
         return this.$alert.error(res.data.token)
       }
       this.$alert.success('登入成功')
-      localStorage.setItem('authkey', res.data.token)
+      this.$cookie.set('authToken', res.data.token)
       this.$router.push({ name: 'index' })
     },
 

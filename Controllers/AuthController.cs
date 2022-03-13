@@ -57,8 +57,8 @@ public class AuthController : Controller
     }
 
     [HttpGet("isLogin")]
-    public IActionResult isLogin(string token){
-
+    public IActionResult isLogin(){
+        string token = Request.Cookies["authToken"];
         if(JwtAuthUtil.VerifyToken(token)){
             return Json(new AuthData(){status = true});
         }else{
